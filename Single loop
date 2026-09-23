@@ -1,0 +1,214 @@
+Series & Patterns (Single Loop)
+
+**60. Print Fibonacci series up to N terms**
+```python
+n = int(input("Enter number of terms: "))
+a, b = 0, 1
+for _ in range(n):
+    print(a, end=" ")
+    a, b = b, a + b
+print()
+```
+
+**61. Compute the sum: 1 + 1/2 + 1/3 + ... + 1/N**
+```python
+n = int(input("Enter N: "))
+total = 0
+for i in range(1, n + 1):
+    total += 1 / i
+print(f"Sum: {total:.4f}")
+```
+
+**62. Compute: 1 - 2 + 3 - 4 + 5 - ... up to N terms**
+```python
+n = int(input("Enter N: "))
+total = 0
+for i in range(1, n + 1):
+    if i % 2 == 1:
+        total += i
+    else:
+        total -= i
+print("Sum:", total)
+```
+
+**63. Find x^n (power) without using built-in pow function**
+```python
+x = float(input("Enter base x: "))
+n = int(input("Enter exponent n: "))
+result = 1
+for _ in range(abs(n)):
+    result *= x
+if n < 0:
+    result = 1 / result
+print(f"{x}^{n} = {result}")
+```
+
+**64. Compute: 1! + 2! + 3! + ... + N!**
+```python
+n = int(input("Enter N: "))
+total = 0
+factorial = 1
+for i in range(1, n + 1):
+    factorial *= i
+    total += factorial
+print("Sum of factorials:", total)
+```
+
+### Applied / Mixed Loop Problems
+
+**65. Print the multiplication table of a given number**
+```python
+n = int(input("Enter a number: "))
+for i in range(1, 11):
+    print(f"{n} x {i} = {n * i}")
+```
+
+**66. Find the sum of even and odd numbers separately from 1 to N**
+```python
+n = int(input("Enter N: "))
+even_sum = 0
+odd_sum = 0
+for i in range(1, n + 1):
+    if i % 2 == 0:
+        even_sum += i
+    else:
+        odd_sum += i
+print("Sum of evens:", even_sum)
+print("Sum of odds:", odd_sum)
+```
+
+**67. Check if a number is an Armstrong number (generalized for any digits)**
+```python
+n = int(input("Enter a number: "))
+digits = str(n)
+power = len(digits)
+total = sum(int(d) ** power for d in digits)
+print(f"{n} is {'an Armstrong' if total == n else 'not an Armstrong'} number")
+```
+
+**68. Find the largest and smallest digit in a number**
+```python
+n = int(input("Enter a number: "))
+digits = str(abs(n))
+largest = max(digits)
+smallest = min(digits)
+print("Largest digit:", largest)
+print("Smallest digit:", smallest)
+```
+
+**69. Print all factors / divisors of a number**
+```python
+n = int(input("Enter a number: "))
+for i in range(1, n + 1):
+    if n % i == 0:
+        print(i, end=" ")
+print()
+```
+
+**70. Check if a number is a perfect number (sum of divisors == number)**
+```python
+n = int(input("Enter a number: "))
+total = 0
+for i in range(1, n):
+    if n % i == 0:
+        total += i
+print(f"{n} is {'a perfect' if total == n else 'not a perfect'} number")
+```
+
+**71. Convert decimal to binary**
+```python
+n = int(input("Enter a decimal number: "))
+if n == 0:
+    binary = "0"
+else:
+    binary = ""
+    temp = n
+    while temp > 0:
+        binary = str(temp % 2) + binary
+        temp //= 2
+print("Binary:", binary)
+```
+
+**72. Convert binary to decimal**
+```python
+binary = input("Enter a binary number: ")
+decimal = 0
+for digit in binary:
+    decimal = decimal * 2 + int(digit)
+print("Decimal:", decimal)
+```
+
+**73. Read numbers until user enters -1, print the count and average**
+```python
+count = 0
+total = 0
+while True:
+    n = float(input("Enter a number (-1 to stop): "))
+    if n == -1:
+        break
+    count += 1
+    total += n
+
+if count > 0:
+    print("Count:", count)
+    print(f"Average: {total / count:.2f}")
+else:
+    print("No numbers entered")
+```
+
+**74. Find the sum of a series: x - x^3/3! + x^5/5! - x^7/7! ... (sin series)**
+```python
+x = float(input("Enter x (in radians): "))
+n_terms = int(input("Enter number of terms: "))
+
+result = 0
+sign = 1
+for i in range(n_terms):
+    power = 2 * i + 1
+    factorial = 1
+    for j in range(1, power + 1):
+        factorial *= j
+    term = (x ** power) / factorial
+    result += sign * term
+    sign *= -1
+
+print(f"sin({x}) approx = {result:.6f}")
+```
+
+**75. Palindrome Check: Check whether a string is a palindrome using recursion**
+```python
+def is_palindrome(s):
+    if len(s) <= 1:
+        return True
+    if s[0] != s[-1]:
+        return False
+    return is_palindrome(s[1:-1])
+
+s = input("Enter a string: ")
+print(f"'{s}' is {'a palindrome' if is_palindrome(s) else 'not a palindrome'}")
+```
+
+**76. Count Vowels: Count the number of vowels in a string using recursion**
+```python
+def count_vowels(s):
+    if len(s) == 0:
+        return 0
+    first = 1 if s[0].lower() in 'aeiou' else 0
+    return first + count_vowels(s[1:])
+
+s = input("Enter a string: ")
+print("Number of vowels:", count_vowels(s))
+```
+
+**77. Increasing + Decreasing: Using a single recursive function, print increasing then decreasing**
+```python
+def print_inc_dec(i, n):
+    if i > n:
+        return
+    print(i, end=" ")
+    print_inc_dec(i + 1, n)
+    print(i, end=" ")
+
+n = int(input("Enter N: "))
+print_inc_dec(1, n)
+print()
