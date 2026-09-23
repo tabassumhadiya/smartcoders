@@ -1,0 +1,192 @@
+30. Build a simple calculator (+, -, x, /) using switch-case (match-case in Python)**
+```python
+a = float(input("Enter first number: "))
+op = input("Enter operator (+, -, *, /): ")
+b = float(input("Enter second number: "))
+
+match op:
+    case '+':
+        print("Result:", a + b)
+    case '-':
+        print("Result:", a - b)
+    case '*':
+        print("Result:", a * b)
+    case '/':
+        print("Result:", a / b if b != 0 else "Error: division by zero")
+    case _:
+        print("Invalid operator")
+```
+
+**31. Read month number (1-12) and print number of days in that month**
+```python
+month = int(input("Enter month number (1-12): "))
+days_in_month = {1:31, 2:28, 3:31, 4:30, 5:31, 6:30,
+                  7:31, 8:31, 9:30, 10:31, 11:30, 12:31}
+if month in days_in_month:
+    print(f"Days: {days_in_month[month]}")
+else:
+    print("Invalid month")
+```
+
+**32. Check if a number is positive, negative, or zero -- then if positive check even/odd**
+```python
+n = int(input("Enter a number: "))
+if n > 0:
+    if n % 2 == 0:
+        print("Positive and Even")
+    else:
+        print("Positive and Odd")
+elif n < 0:
+    print("Negative")
+else:
+    print("Zero")
+```
+
+**33. Given 3 numbers, print them in ascending order using only if-else**
+```python
+a = float(input("Enter first number: "))
+b = float(input("Enter second number: "))
+c = float(input("Enter third number: "))
+
+if a <= b and a <= c:
+    first = a
+    second, third = (b, c) if b <= c else (c, b)
+elif b <= a and b <= c:
+    first = b
+    second, third = (a, c) if a <= c else (c, a)
+else:
+    first = c
+    second, third = (a, b) if a <= b else (b, a)
+
+print(f"Ascending order: {first}, {second}, {third}")
+```
+
+**34. Find the roots of a quadratic equation (check discriminant: real, equal, imaginary)**
+```python
+import math
+a = float(input("Enter a: "))
+b = float(input("Enter b: "))
+c = float(input("Enter c: "))
+
+discriminant = b**2 - 4*a*c
+
+if discriminant > 0:
+    root1 = (-b + math.sqrt(discriminant)) / (2*a)
+    root2 = (-b - math.sqrt(discriminant)) / (2*a)
+    print(f"Two real roots: {root1:.2f}, {root2:.2f}")
+elif discriminant == 0:
+    root = -b / (2*a)
+    print(f"One repeated real root: {root:.2f}")
+else:
+    real = -b / (2*a)
+    imag = math.sqrt(-discriminant) / (2*a)
+    print(f"Complex roots: {real:.2f} + {imag:.2f}i, {real:.2f} - {imag:.2f}i")
+```
+
+### Mixed / Applied
+
+**35. Check if a given character is an alphabet, digit, or special character**
+```python
+ch = input("Enter a character: ")
+if ch.isalpha():
+    print("Alphabet")
+elif ch.isdigit():
+    print("Digit")
+else:
+    print("Special character")
+```
+
+**36. Read the cost price and selling price -- print profit, loss, or no profit no loss**
+```python
+cp = float(input("Enter cost price: "))
+sp = float(input("Enter selling price: "))
+if sp > cp:
+    print(f"Profit: {sp - cp:.2f}")
+elif cp > sp:
+    print(f"Loss: {cp - sp:.2f}")
+else:
+    print("No profit, no loss")
+```
+
+**37. Given coordinates (x, y), determine which quadrant the point lies in**
+```python
+x = float(input("Enter x: "))
+y = float(input("Enter y: "))
+if x == 0 and y == 0:
+    print("Point is at the origin")
+elif x == 0:
+    print("Point is on the Y-axis")
+elif y == 0:
+    print("Point is on the X-axis")
+elif x > 0 and y > 0:
+    print("Quadrant I")
+elif x < 0 and y > 0:
+    print("Quadrant II")
+elif x < 0 and y < 0:
+    print("Quadrant III")
+else:
+    print("Quadrant IV")
+```
+
+**38. Check if a 3-digit number is an Armstrong number (e.g., 153)**
+```python
+n = int(input("Enter a 3-digit number: "))
+s = str(n)
+total = sum(int(d) ** 3 for d in s)
+if total == n:
+    print(f"{n} is an Armstrong number")
+else:
+    print(f"{n} is not an Armstrong number")
+```
+
+**39. Given hours worked and rate, compute salary with overtime (>40 hrs at 1.5x rate)**
+```python
+hours = float(input("Enter hours worked: "))
+rate = float(input("Enter hourly rate: "))
+if hours > 40:
+    salary = 40 * rate + (hours - 40) * rate * 1.5
+else:
+    salary = hours * rate
+print(f"Salary: {salary:.2f}")
+```
+
+**40. ATM Withdrawal: Approve or reject based on amount, balance, and minimum-balance rules**
+```python
+balance = float(input("Enter current balance: "))
+amount = float(input("Enter withdrawal amount: "))
+MIN_BALANCE = 500
+
+if amount <= 0:
+    print("Invalid amount")
+elif amount % 100 != 0:
+    print("Amount must be in multiples of 100")
+elif balance - amount < MIN_BALANCE:
+    print("Transaction declined: insufficient balance (minimum balance rule)")
+else:
+    balance -= amount
+    print(f"Withdrawal successful. New balance: {balance:.2f}")
+```
+
+**41. Clock Angle: Given hour and minute, calculate the smaller angle between the two hands**
+```python
+hour = int(input("Enter hour (0-12): "))
+minute = int(input("Enter minute (0-59): "))
+
+hour = hour % 12
+hour_angle = 0.5 * (hour * 60 + minute)
+minute_angle = 6 * minute
+angle = abs(hour_angle - minute_angle)
+angle = min(angle, 360 - angle)
+print(f"Angle between hands: {angle:.2f} degrees")
+```
+
+**42. Scholarship Eligibility: Determine eligibility based on marks, attendance, and family income**
+```python
+marks = float(input("Enter marks percentage: "))
+attendance = float(input("Enter attendance percentage: "))
+income = float(input("Enter annual family income: "))
+
+if marks >= 75 and attendance >= 80 and income <= 200000:
+    print("Eligible for scholarship")
+else:
+    print("Not eligible for scholarship")
